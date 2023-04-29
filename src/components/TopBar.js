@@ -8,7 +8,7 @@ const TopBar = () => {
   const menus = [
     {
       title: "로그인",
-      href: "/",
+      href: "/login",
     },
     {
       title: "회원가입",
@@ -33,17 +33,17 @@ const TopBar = () => {
       }`}
     >
       <div className="w-full max-w-6xl flex justify-between p-4 lg:p-6">
-        <div></div>
-          <ul className="flex justify-center items-center list-none gap-8">
-            {menus.map((menu) => (
-              <li
-                className="font-pretendard  font-medium text-sm"
-                key={menu.title}
-              >
-                <a href={menu.href}>{menu.title}</a>
-              </li>
-            ))}
-          </ul>
+        <div />
+        <ul className="flex justify-center items-center list-none gap-8">
+          {menus.map((menu) => (
+            <li
+              className="font-pretendard  font-medium text-sm"
+              key={menu.title}
+            >
+              <a href={menu.href}>{menu.title}</a>
+            </li>
+          ))}
+        </ul>
       </div>
     </header>
   );
