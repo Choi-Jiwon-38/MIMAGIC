@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TopBar from "../components/TopBar";
 
 const Home = () => {
@@ -11,9 +12,9 @@ const Home = () => {
           <br />
           your imagination
         </h2>
-        <button className="bg-white py-2 w-[130px] my-7 rounded-xl text-xl font-extrabold z-10">
+        <Link className="bg-white py-2 text-center w-[130px] my-7 rounded-xl text-xl font-extrabold z-10" to="/keyword">
           Try it
-        </button>
+        </Link>
         <h1 className="text-white mt-[72px] font-black text-7xl z-10">
           MIMAGIC
         </h1>
