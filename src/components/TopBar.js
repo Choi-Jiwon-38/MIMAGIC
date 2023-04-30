@@ -12,7 +12,7 @@ const TopBar = () => {
     },
     {
       title: "회원가입",
-      href: "/",
+      href: "/signup",
     },
   ];
 
