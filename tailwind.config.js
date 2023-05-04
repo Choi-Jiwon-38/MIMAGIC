@@ -2,7 +2,14 @@
 module.exports = {
   content: ["./src/**/*.{js, jsx, ts, tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        loaderAnimate: {
+          "0%, 100%": { transfrom: "translateX(-80px)" },
+          "50%": { transform: "translateX(80px)" },
+        },
+      },
+    },
   },
   plugins: [],
 };
