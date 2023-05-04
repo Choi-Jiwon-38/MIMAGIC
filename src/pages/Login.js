@@ -1,9 +1,11 @@
+import { firebaseAuth, signInWithEmailAndPassword } from "../firebase";
 import { useState } from "react";
 import TopBar from "../components/TopBar";
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
@@ -13,6 +15,32 @@ const Login = () => {
   const handleInputPassword = (e) => {
     setPassword(e.target.value);
     console.log(password);
+  };
+
+  const login = async () => {
+    try {
+      const curUserInfo = await signInWithEmailAndPassword(
+        firebaseAuth,
+        username,
+        password
+      );
+      setUserName("");
+      setPassword("");
+      setErrorMsg("");
+      console.log(curUserInfo);
+    } catch (err) {
+      switch (err.code) {
+        case "auth/user-not-found":
+          setErrorMsg("⚠ user not found");
+          break;
+        case "auth/wrong-password":
+          setErrorMsg("⚠ wrong password");
+          break;
+        default:
+          setErrorMsg("⚠ login failed");
+          break;
+      }
+    }
   };
 
   return (
@@ -28,37 +56,37 @@ const Login = () => {
           }}
         >
           <h1 className="text-[24px] font-extrabold text-white">Login</h1>
-          <form className="w-full" id="loginForm">
+          <div className="w-full">
             <label className="block py-[12px]">
               <span className="text-base font-extrabold text-white">
                 Username
               </span>
               <input
                 type="text"
-                name="username"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
                 placeholder="Email or Phone"
                 onChange={handleInputUsername}
                 value={username}
               />
             </label>
-            <label className="block py-[12px]">
+            <label className="block pt-[12px]">
               <span className="text-base font-extrabold text-white">
                 Password
               </span>
               <input
                 type="password"
-                name="password"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
                 placeholder="Password"
                 onChange={handleInputPassword}
                 value={password}
               />
             </label>
+            <p className=" text-white font-extrabold pt-2 h-[14px]">{errorMsg}</p>
             <button
               className="w-full py-[10px] bg-white font-extrabold mt-7 mb-2 rounded-md"
-              type="submit"
-              form="loginForm"
+              onClick={() => {
+                login();
+              }}
             >
               Log in
             </button>
@@ -70,7 +98,7 @@ const Login = () => {
                 with Google
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>

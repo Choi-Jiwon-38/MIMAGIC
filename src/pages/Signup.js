@@ -1,3 +1,4 @@
+import { firebaseAuth, createUserWithEmailAndPassword } from "../firebase";
 import { useState } from "react";
 import TopBar from "../components/TopBar";
 
@@ -5,6 +6,7 @@ const Signup = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [pswagain, setPswagain] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
@@ -21,6 +23,39 @@ const Signup = () => {
     console.log(pswagain);
   };
 
+  const signup = async () => {
+    if (username !== "" && password !== "" && password === pswagain) {
+      try {
+        const createdUser = await createUserWithEmailAndPassword(
+          firebaseAuth,
+          username,
+          password
+        );
+        console.log(createdUser);
+        setUserName("");
+        setPassword("");
+        setErrorMsg("");
+      } catch (err) {
+        switch (err.code) {
+          case "auth/weak-password":
+            setErrorMsg("⚠ weak password");
+            break;
+          case "auth/invalid-email":
+            setErrorMsg("⚠ invalid email");
+            break;
+          case "auth/email-already-in-use":
+            setErrorMsg("⚠ email already in use");
+            break;
+          default:
+            setErrorMsg("⚠ signup error");
+            break;
+        }
+      }
+    } else {
+      setErrorMsg("⚠ incorrect password");
+    }
+  };
+
   return (
     <>
       <TopBar />
@@ -33,15 +68,16 @@ const Signup = () => {
             boxShadow: "0px 10px 10px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <h1 className="text-[24px] font-extrabold text-white">Create Account</h1>
-          <form className="w-full" id="signupForm">
+          <h1 className="text-[24px] font-extrabold text-white">
+            Create Account
+          </h1>
+          <div className="w-full">
             <label className="block py-[12px]">
               <span className="text-base font-extrabold text-white">
                 Username
               </span>
               <input
                 type="text"
-                name="username"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
                 placeholder="Email or Phone"
                 onChange={handleInputUsername}
@@ -54,7 +90,6 @@ const Signup = () => {
               </span>
               <input
                 type="password"
-                name="password"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
                 placeholder="Password"
                 onChange={handleInputPassword}
@@ -67,20 +102,21 @@ const Signup = () => {
               </span>
               <input
                 type="password"
-                name="pswagain"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
                 onChange={handleInputPswAgain}
                 value={pswagain}
               />
             </label>
+            <p className=" text-white font-extrabold h-[20px]">{errorMsg}</p>
             <button
-              className="w-full py-[10px] bg-white font-extrabold mt-7 mb-2 rounded-md"
-              type="submit"
-              form="signupForm"
+              className="w-full py-[10px] mt-2 bg-white font-extrabold mb-2 rounded-md"
+              onClick={() => {
+                signup();
+              }}
             >
               Create your account
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </>
