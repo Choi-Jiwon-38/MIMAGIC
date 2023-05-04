@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Loading from "./components/Loading";
 import Home from "./pages/Home";
+import KakaoRedirect from "./pages/KakaoRedirect";
 import Keyword from "./pages/Keyword";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -14,6 +15,7 @@ function App() {
       <Route path="/signup" element={<Signup />} />
       <Route path="/keyword" element={<Keyword />} />
       <Route path="/loading" element={<Loading />} />
+      <Route path="/redirect/kakao" element={<KakaoRedirect />} />
     </Routes>
   );
 }

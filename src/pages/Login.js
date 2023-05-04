@@ -5,13 +5,12 @@ import { useRecoilState } from "recoil";
 import { userState } from "../atom";
 import { useNavigate } from "react-router-dom";
 
-
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useRecoilState(userState);
-  
+
   const navigate = useNavigate();
 
   const handleInputUsername = (e) => {
@@ -25,7 +24,7 @@ const Login = () => {
   };
 
   const login = async () => {
-    console.log('before login ', user);
+    console.log("before login ", user);
     try {
       const curUserInfo = await signInWithEmailAndPassword(
         firebaseAuth,
@@ -36,8 +35,8 @@ const Login = () => {
       setPassword("");
       setErrorMsg("");
       console.log(curUserInfo);
-      setUser({ id: curUserInfo.user.email , isLoggined: true });
-      console.log('after login ', user);
+      setUser({ id: curUserInfo.user.email, isLoggined: true });
+      console.log("after login ", user);
       navigate("/");
     } catch (err) {
       switch (err.code) {
@@ -52,6 +51,18 @@ const Login = () => {
           break;
       }
     }
+  };
+
+  if (!window.Kakao.isInitialized()) {
+    window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
+  }
+
+  const onLoginWithKakao = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const redirectUri = `${location.origin}/redirect/kakao`;
+    window.Kakao.Auth.authorize({
+      redirectUri,
+    });
   };
 
   return (
@@ -104,7 +115,12 @@ const Login = () => {
               Log in
             </button>
             <div className="flex gap-[6px]">
-              <button className="w-full py-[10px] bg-white bg-opacity-50 rounded-md font-extrabold text-white">
+              <button
+                className="w-full py-[10px] bg-white bg-opacity-50 rounded-md font-extrabold text-white"
+                onClick={() => {
+                  onLoginWithKakao();
+                }}
+              >
                 with Kakao
               </button>
               <button className="w-full py-[10px] bg-white bg-opacity-50 rounded-md font-extrabold text-white">
