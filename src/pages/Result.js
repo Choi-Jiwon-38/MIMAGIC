@@ -1,6 +1,6 @@
 import TopBar from "../components/TopBar";
 
-const Result = () => {
+const Result = ({ icon, name, concept }) => {
   return (
     <>
       <TopBar />
@@ -13,18 +13,24 @@ const Result = () => {
             boxShadow: "0px 10px 10px rgba(0, 0, 0, 0.25)",
           }}
         >
-          <div className="rounded-full bg-[#d9d9d9] w-[128px] h-[128px]" />
+          <div className="rounded-full bg-[#d9d9d9] w-[128px] h-[128px]">
+            {icon}
+          </div>
           <div className="w-full flex flex-col gap-3">
             <p className="font-black text-white text-[20px]">
               how about this name...
             </p>
-            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]"></div>
+            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]">
+              {name}
+            </div>
           </div>
           <div className="w-full flex flex-col gap-3">
             <p className="font-black text-white text-[20px]">
               how about this concept...
             </p>
-            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]"></div>
+            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]">
+              {concept}
+            </div>
           </div>
         </div>
 
