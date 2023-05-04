@@ -1,11 +1,18 @@
 import { firebaseAuth, signInWithEmailAndPassword } from "../firebase";
 import { useState } from "react";
 import TopBar from "../components/TopBar";
+import { useRecoilState } from "recoil";
+import { userState } from "../atom";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [user, setUser] = useRecoilState(userState);
+  
+  const navigate = useNavigate();
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
@@ -18,6 +25,7 @@ const Login = () => {
   };
 
   const login = async () => {
+    console.log('before login ', user);
     try {
       const curUserInfo = await signInWithEmailAndPassword(
         firebaseAuth,
@@ -28,6 +36,9 @@ const Login = () => {
       setPassword("");
       setErrorMsg("");
       console.log(curUserInfo);
+      setUser({ id: curUserInfo.user.email , isLoggined: true });
+      console.log('after login ', user);
+      navigate("/");
     } catch (err) {
       switch (err.code) {
         case "auth/user-not-found":
@@ -81,7 +92,9 @@ const Login = () => {
                 value={password}
               />
             </label>
-            <p className=" text-white font-extrabold pt-2 h-[14px]">{errorMsg}</p>
+            <p className=" text-white font-extrabold pt-2 h-[14px]">
+              {errorMsg}
+            </p>
             <button
               className="w-full py-[10px] bg-white font-extrabold mt-7 mb-2 rounded-md"
               onClick={() => {
