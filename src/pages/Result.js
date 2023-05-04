@@ -1,6 +1,9 @@
 import TopBar from "../components/TopBar";
 
 const Result = ({ icon, name, concept }) => {
+  const saveTemplate = () => {};
+  const ugradeToPro = () => {};
+
   return (
     <>
       <TopBar />
@@ -44,10 +47,20 @@ const Result = ({ icon, name, concept }) => {
         >
           <div className="w-full h-[360px] bg-[#d9d9d9] rounded-xl" />
           <div className="flex flex-col gap-4">
-            <div className="w-full py-[18px] text-center text-[20px] font-black rounded-xl bg-white cursor-pointer">
+            <div
+              className="w-full py-[18px] text-center text-[20px] font-black rounded-xl bg-white cursor-pointer"
+              onClick={() => {
+                saveTemplate();
+              }}
+            >
               Save this Template
             </div>
-            <div className="w-full py-[18px] text-center text-[20px] font-black rounded-xl bg-white cursor-pointer">
+            <div
+              className="w-full py-[18px] text-center text-[20px] font-black rounded-xl bg-white cursor-pointer"
+              onClick={() => {
+                ugradeToPro();
+              }}
+            >
               Upgrade to Pro License
             </div>
           </div>
