@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atom";
 import TopBar from "../components/TopBar";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const isLoggined = useRecoilValue(userState).isLoggined;
+  const toKeyword = () => {
+    isLoggined ? navigate("/keyword") : navigate("/login");
+  };
+
   return (
     <div>
       <TopBar />
@@ -12,9 +20,14 @@ const Home = () => {
           <br />
           your imagination
         </h2>
-        <Link className="bg-white py-2 text-center w-[130px] my-7 rounded-xl text-xl font-extrabold z-10" to="/keyword">
+        <div
+          className="bg-white py-2 text-center w-[130px] my-7 rounded-xl text-xl font-extrabold z-10"
+          onClick={() => {
+            toKeyword();
+          }}
+        >
           Try it
-        </Link>
+        </div>
         <h1 className="text-white mt-[72px] font-black text-7xl z-10">
           MIMAGIC
         </h1>
