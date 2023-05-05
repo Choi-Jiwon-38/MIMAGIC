@@ -1,6 +1,19 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atom";
 import TopBar from "../components/TopBar";
 
 const Keyword = () => {
+  const navigate = useNavigate();
+  const isLoggined = useRecoilValue(userState).isLoggined;
+  // login 상태가 아닌 경우에 Keyword 페이지로 접근하면 Login으로 redirect
+  useEffect(() => {
+    if (!isLoggined) {
+      navigate("/login");
+    }
+  }, [navigate, isLoggined]);
+
   return (
     <>
       <TopBar />
