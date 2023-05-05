@@ -1,8 +1,21 @@
 import TopBar from "../components/TopBar";
-
+import { useRecoilValue } from "recoil"
+import { userState } from "../atom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const Result = ({ icon, name, concept }) => {
+  const isLoggined = useRecoilValue(userState).isLoggined;
+  const navigate = useNavigate();
+
   const saveTemplate = () => {};
   const ugradeToPro = () => {};
+  
+  // login 상태가 아닌 경우에 Result 페이지로 접근하면 Login으로 redirect
+  useEffect(() => {
+    if (!isLoggined) {
+      navigate('/login');
+    } 
+  }, [navigate, isLoggined]);
 
   return (
     <>
