@@ -1,5 +1,5 @@
 import { firebaseAuth, signInWithEmailAndPassword } from "../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import TopBar from "../components/TopBar";
 import { useRecoilState } from "recoil";
 import { userState } from "../atom";
@@ -22,6 +22,13 @@ const Login = () => {
     setPassword(e.target.value);
     console.log(password);
   };
+
+  // login 상태인 경우에는 login 페이지로 접근하면 Home으로 redirect
+  useEffect(() => {
+    if (user.isLoggined) {
+      navigate('/');
+    } 
+  }, [navigate, user.isLoggined]);
 
   const login = async () => {
     console.log("before login ", user);
