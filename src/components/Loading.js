@@ -1,9 +1,40 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
 
 const Loading = ({ text }) => {
   const { state } = useLocation();
+  const [resultConcept, setResultConcept] = useState("");
+  const [resultName, setResultName] = useState("");
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (state !== "") {
+      var q1 = state.question1;
+      var q2 = state.question2;
+      console.log(q1, q2);
+      
+      fetch("http://localhost:3001/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({q1}),
+      })
+        .then((res) => res.json())
+        .then((data) => setResultConcept(data.message));
+
+      fetch("http://localhost:3001/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({q2}),
+      })
+        .then((res) => res.json())
+        .then((data) => setResultName(data.message));
+    }
+  }, [navigate, resultConcept, resultName, state]);
 
   return (
     <>
