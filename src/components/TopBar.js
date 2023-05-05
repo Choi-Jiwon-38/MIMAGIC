@@ -21,9 +21,12 @@ const TopBar = () => {
         <ul className="flex justify-center items-center list-none gap-8">
           <li className="font-pretendard font-medium text-sm">
             {user.isLoggined ? (
-              <p className="cursor-pointer" onClick={() => logout()}>
-                로그아웃
-              </p>
+              <div className="flex">
+                <p className="pr-6 text-[#999999] font-bold">({user.id})</p>
+                <p className="cursor-pointer" onClick={() => logout()}>
+                  로그아웃
+                </p>
+              </div>
             ) : (
               <a href="/login">로그인</a>
             )}
