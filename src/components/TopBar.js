@@ -15,7 +15,9 @@ const TopBar = () => {
   return (
     <header className="fixed top-0 z-50 bg-white w-full h-14 flex items-center justify-center">
       <div className="w-full max-w-6xl flex justify-between p-4 lg:p-6">
-        <div />
+        <a className="font-black cursor-pointer" href="/">
+          MIMAGIC
+        </a>
         <ul className="flex justify-center items-center list-none gap-8">
           <li className="font-pretendard font-medium text-sm">
             {user.isLoggined ? (
