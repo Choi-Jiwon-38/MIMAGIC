@@ -23,7 +23,7 @@ const Result = ({ icon, name, concept }) => {
             <p className="font-black text-white text-[20px]">
               how about this name...
             </p>
-            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]">
+            <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
               {name}
             </div>
           </div>
@@ -31,7 +31,7 @@ const Result = ({ icon, name, concept }) => {
             <p className="font-black text-white text-[20px]">
               how about this concept...
             </p>
-            <div className="bg-[#d9d9d9] bg-opacity-80 text-white rounded-2xl w-full h-[104px]">
+            <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
               {concept}
             </div>
           </div>
