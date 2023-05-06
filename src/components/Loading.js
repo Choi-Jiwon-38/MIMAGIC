@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TopBar from "./TopBar";
+import axios from "axios";
 
 const Loading = ({ text }) => {
   const { state } = useLocation();
@@ -9,32 +10,32 @@ const Loading = ({ text }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (state !== "") {
-      var q1 = state.question1;
-      var q2 = state.question2;
-      console.log(q1, q2);
-      
-      fetch("http://localhost:3001/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({q1}),
-      })
-        .then((res) => res.json())
-        .then((data) => setResultConcept(data.message));
+    if (state.question1 !== "" && state.question2 !== "") {
+      let q1 = state.question1;
+      let q2 = state.question2;
+      let url = "http://localhost:3001/";
 
-      fetch("http://localhost:3001/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({q2}),
-      })
-        .then((res) => res.json())
-        .then((data) => setResultName(data.message));
+      axios
+        .post(url, { q1 })
+        .then(function (res) {
+          setResultConcept(res); // 서비스 아이디어 추천 결과 저장
+          axios
+            .post(url, { q2 })
+            .then(function (res) {
+              setResultName(res); // 서비스 이름 추천 결과 저장
+              navigate("/result", { state: { resultConcept, resultName } });
+            })
+            .catch(function () {
+              alert("검색 도중 예상치 못한 문제가 발생하였습니다.");
+              navigate("/");
+            });
+        })
+        .catch(function () {
+          alert("검색 도중 예상치 못한 문제가 발생하였습니다.");
+          navigate("/");
+        });
     }
-  }, [navigate, resultConcept, resultName, state]);
+  }, []);
 
   return (
     <>
