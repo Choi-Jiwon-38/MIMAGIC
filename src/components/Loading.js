@@ -1,30 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import TopBar from "./TopBar";
 import axios from "axios";
+import { resultState } from "../atom";
 
 const Loading = ({ text }) => {
   const { state } = useLocation();
-  const [resultConcept, setResultConcept] = useState("");
-  const [resultName, setResultName] = useState("");
   const navigate = useNavigate();
+  const [result, setReuslt] = useRecoilState(resultState);
 
   useEffect(() => {
     if (state.question1 !== "" && state.question2 !== "") {
       let url = "http://localhost:3001/";
-
+      let r1, r2;
       let message = state.question1;
       axios
         .post(url, { message })
         .then(function (res) {
-          setResultConcept(res.data.message); // 서비스 아이디어 추천 결과 저장
+          r1 = res.data.message; // 서비스 아이디어 추천 결과 저장
           message = state.question2;
           axios
             .post(url, { message })
             .then(function (res) {
-              setResultName(res.data.message); // 서비스 이름 추천 결과 저장
-              console.log(resultName, resultConcept);
-              navigate("/result", { state: { resultConcept, resultName } });
+              r2 = res.data.message; // 서비스 이름 추천 결과 저장
+              setReuslt({ resultConcept: r1, resultName: r2 });
+              console.log(result);
+              navigate("/result");
             })
             .catch(function () {
               alert("검색 도중 예상치 못한 문제가 발생하였습니다.");
@@ -36,7 +38,7 @@ const Loading = ({ text }) => {
           navigate("/");
         });
     }
-  }, [navigate, resultConcept, resultName, state.question1, state.question2]);
+  }, [navigate, result, setReuslt, state.question1, state.question2]);
 
   return (
     <>
