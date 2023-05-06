@@ -10,28 +10,20 @@ const Signup = () => {
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
-    console.log(username);
   };
 
   const handleInputPassword = (e) => {
     setPassword(e.target.value);
-    console.log(password);
   };
 
   const handleInputPswAgain = (e) => {
     setPswagain(e.target.value);
-    console.log(pswagain);
   };
 
   const signup = async () => {
     if (username !== "" && password !== "" && password === pswagain) {
       try {
-        const createdUser = await createUserWithEmailAndPassword(
-          firebaseAuth,
-          username,
-          password
-        );
-        console.log(createdUser);
+        createUserWithEmailAndPassword(firebaseAuth, username, password);
         setUserName("");
         setPassword("");
         setErrorMsg("");

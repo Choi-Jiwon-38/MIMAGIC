@@ -25,7 +25,6 @@ const Loading = ({ text }) => {
             .then(function (res) {
               r2 = res.data.message; // 서비스 이름 추천 결과 저장
               setReuslt({ resultConcept: r1, resultName: r2 });
-              console.log(result);
               navigate("/result");
             })
             .catch(function () {

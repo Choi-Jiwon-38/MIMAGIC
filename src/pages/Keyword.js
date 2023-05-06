@@ -16,8 +16,6 @@ const Keyword = () => {
     setQuestion2(
       "Please make 5 names of web services except for simply connecting words using the keyword " + message
     );
-    console.log(question1);
-    console.log(question2);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
 

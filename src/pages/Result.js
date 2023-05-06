@@ -11,7 +11,6 @@ const Result = ({ icon }) => {
   const saveTemplate = () => {};
   const ugradeToPro = () => {};
   const { state } = useLocation();
-  console.log(state);
 
   // login 상태가 아닌 경우에 Result 페이지로 접근하면 Login으로 redirect
   useEffect(() => {

@@ -15,12 +15,10 @@ const Login = () => {
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
-    console.log(username);
   };
 
   const handleInputPassword = (e) => {
     setPassword(e.target.value);
-    console.log(password);
   };
 
   // login 상태인 경우에는 login 페이지로 접근하면 Home으로 redirect
@@ -31,7 +29,6 @@ const Login = () => {
   }, [navigate, user.isLoggined]);
 
   const login = async () => {
-    console.log("before login ", user);
     try {
       const curUserInfo = await signInWithEmailAndPassword(
         firebaseAuth,
@@ -41,9 +38,7 @@ const Login = () => {
       setUserName("");
       setPassword("");
       setErrorMsg("");
-      console.log(curUserInfo);
       setUser({ id: curUserInfo.user.email, isLoggined: true });
-      console.log("after login ", user);
       navigate("/");
     } catch (err) {
       switch (err.code) {
