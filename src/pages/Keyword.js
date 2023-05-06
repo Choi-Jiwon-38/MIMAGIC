@@ -11,7 +11,7 @@ const Keyword = () => {
 
   useEffect(() => {
     setQuestion1(
-      "Please come up with five web service ideas using the keyword " + message
+      "Please come up with two web service ideas using the keyword " + message
     );
     setQuestion2(
       "Please make five names for web services using the keywords " + message
