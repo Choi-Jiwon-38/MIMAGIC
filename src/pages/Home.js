@@ -21,7 +21,7 @@ const Home = () => {
           your imagination
         </h2>
         <div
-          className="bg-white py-2 text-center w-[130px] my-7 rounded-xl text-xl font-extrabold z-10"
+          className="bg-white py-2 text-center w-[130px] my-7 rounded-xl text-xl font-extrabold z-10 cursor-pointer"
           onClick={() => {
             toKeyword();
           }}
