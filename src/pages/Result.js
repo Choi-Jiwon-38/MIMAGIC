@@ -1,20 +1,22 @@
 import TopBar from "../components/TopBar";
-import { useRecoilValue } from "recoil"
-import { userState } from "../atom";
+import { useRecoilValue } from "recoil";
+import { resultState, userState } from "../atom";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-const Result = ({ icon, name, concept }) => {
+import { useNavigate, useLocation } from "react-router-dom";
+const Result = ({ icon }) => {
   const isLoggined = useRecoilValue(userState).isLoggined;
+  const result = useRecoilValue(resultState);
   const navigate = useNavigate();
 
   const saveTemplate = () => {};
   const ugradeToPro = () => {};
-  
+  const { state } = useLocation();
+
   // login 상태가 아닌 경우에 Result 페이지로 접근하면 Login으로 redirect
   useEffect(() => {
     if (!isLoggined) {
-      navigate('/login');
-    } 
+      navigate("/login");
+    }
   }, [navigate, isLoggined]);
 
   return (
@@ -22,7 +24,7 @@ const Result = ({ icon, name, concept }) => {
       <TopBar />
       <div className="flex bg-black w-screen h-screen items-center justify-center gap-[44px]">
         <div
-          className="flex flex-col justify-center items-center w-[550px] h-[660px] bg-blur-5 backdrop-blur-5 rounded-2xl p-11 gap-9"
+          className="flex flex-col justify-center items-center w-[550px] bg-blur-5 backdrop-blur-5 rounded-2xl p-11 gap-9"
           style={{
             background:
               "linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(100% 64.41% at 4.48% 3.92%, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%)",
@@ -37,15 +39,15 @@ const Result = ({ icon, name, concept }) => {
               how about this name...
             </p>
             <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
-              {name}
+              {result.resultName}
             </div>
           </div>
           <div className="w-full flex flex-col gap-3">
             <p className="font-black text-white text-[20px]">
               how about this concept...
             </p>
-            <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
-              {concept}
+            <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full py-1 px-2 text-black font-bold">
+              {result.resultConcept}
             </div>
           </div>
         </div>
