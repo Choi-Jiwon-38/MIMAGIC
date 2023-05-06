@@ -8,3 +8,9 @@ export const userState = atom({
   default: { id: "", isLoggined: false }, // 비로그인 사용자
   effects_UNSTABLE: [persistAtom],
 });
+
+export const resultState = atom({
+  key: "resultState",
+  default: { resultName: "", resultConcept: "" }, // 결과 초기값
+  effects_UNSTABLE: [persistAtom],
+});
