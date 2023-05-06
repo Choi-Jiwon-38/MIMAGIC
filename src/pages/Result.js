@@ -2,13 +2,14 @@ import TopBar from "../components/TopBar";
 import { useRecoilValue } from "recoil";
 import { userState } from "../atom";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-const Result = ({ icon, name, concept }) => {
+import { useNavigate, useLocation } from "react-router-dom";
+const Result = ({ icon }) => {
   const isLoggined = useRecoilValue(userState).isLoggined;
   const navigate = useNavigate();
 
   const saveTemplate = () => {};
   const ugradeToPro = () => {};
+  const { state } = useLocation();
 
   // login 상태가 아닌 경우에 Result 페이지로 접근하면 Login으로 redirect
   useEffect(() => {
@@ -37,7 +38,7 @@ const Result = ({ icon, name, concept }) => {
               how about this name...
             </p>
             <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
-              {name}
+              {state.resultName}
             </div>
           </div>
           <div className="w-full flex flex-col gap-3">
@@ -45,7 +46,7 @@ const Result = ({ icon, name, concept }) => {
               how about this concept...
             </p>
             <div className="bg-[#d9d9d9] bg-opacity-80 rounded-2xl w-full h-[104px] py-1 px-2 text-black font-bold">
-              {concept}
+              {state.resultConcept}
             </div>
           </div>
         </div>
