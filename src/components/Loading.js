@@ -11,18 +11,19 @@ const Loading = ({ text }) => {
 
   useEffect(() => {
     if (state.question1 !== "" && state.question2 !== "") {
-      let q1 = state.question1;
-      let q2 = state.question2;
       let url = "http://localhost:3001/";
 
+      let message = state.question1;
       axios
-        .post(url, { q1 })
+        .post(url, { message })
         .then(function (res) {
-          setResultConcept(res); // 서비스 아이디어 추천 결과 저장
+          setResultConcept(res.data.message); // 서비스 아이디어 추천 결과 저장
+          message = state.question2;
           axios
-            .post(url, { q2 })
+            .post(url, { message })
             .then(function (res) {
-              setResultName(res); // 서비스 이름 추천 결과 저장
+              setResultName(res.data.message); // 서비스 이름 추천 결과 저장
+              console.log(resultName, resultConcept);
               navigate("/result", { state: { resultConcept, resultName } });
             })
             .catch(function () {
@@ -35,7 +36,7 @@ const Loading = ({ text }) => {
           navigate("/");
         });
     }
-  }, []);
+  }, [navigate, resultConcept, resultName, state.question1, state.question2]);
 
   return (
     <>
