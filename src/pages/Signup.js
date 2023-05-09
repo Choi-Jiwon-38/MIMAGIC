@@ -1,12 +1,15 @@
 import { firebaseAuth, createUserWithEmailAndPassword } from "../firebase";
 import { useState } from "react";
 import TopBar from "../components/TopBar";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [pswagain, setPswagain] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+
+  const navigate = useNavigate();
 
   const handleInputUsername = (e) => {
     setUserName(e.target.value);
@@ -27,6 +30,7 @@ const Signup = () => {
         setUserName("");
         setPassword("");
         setErrorMsg("");
+        navigate('/');
       } catch (err) {
         switch (err.code) {
           case "auth/weak-password":
@@ -71,7 +75,7 @@ const Signup = () => {
               <input
                 type="text"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
-                placeholder="Email or Phone"
+                placeholder="Email"
                 onChange={handleInputUsername}
                 value={username}
               />
