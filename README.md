@@ -109,3 +109,9 @@ const firebaseConfig = {
 - node.js 서버의 연결이 끊겨있거나 port 번호가 다르게 설정되어 연결이 불가능한 경우에는 `localhost:3000/loading` 페이지에서 경고창이 출력되며 `localhost:3000/`으로 redirect 됩니다.
 - server에서 요청한 응답이 정상적으로 return 된 경우에는 `localhost:3000/result` 페이지를 통하여 사용자에게 출력됩니다.
 
+---
+
+## 시연 연상 (Demo video)
+
+[![2023-1 Web Client computing - MIMAGIC 시연 연상](https://img.youtube.com/vi/_mjNaBYIirk/0.jpg)](https://youtu.be/_mjNaBYIirk)
+- 영상에 대한 설명은 유튜브의 자막 설정을 활성화하면 볼 수 있습니다.
