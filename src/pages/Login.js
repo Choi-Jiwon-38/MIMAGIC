@@ -41,14 +41,14 @@ const Login = () => {
       setUser({ id: curUserInfo.user.email, isLoggined: true });
       navigate("/");
     } catch (err) {
-      switch (err.code) {
-        case "auth/user-not-found":
+      switch (err.code) {             // Admin Authentication API 오류 처리
+        case "auth/user-not-found":   // 제공된 식별자에 해당하는 기존 사용자 레코드가 존재하지 않은 경우
           setErrorMsg("⚠ user not found");
           break;
-        case "auth/wrong-password":
+        case "auth/wrong-password":   // 비밀번호가 일치하지 않는 경우
           setErrorMsg("⚠ wrong password");
           break;
-        default:
+        default:                      // 위 두 가지 경우를 제외한 나머지 API 오류에 해당하는 경우
           setErrorMsg("⚠ login failed");
           break;
       }
@@ -88,7 +88,7 @@ const Login = () => {
               <input
                 type="text"
                 className="font-extrabold text-white placeholder-opacity-100::placeholder mt-2 px-3 py-2 bg-[#d9d9d9] bg-opacity-50 shadow-sm placeholder-white focus:outline-none block w-full rounded-md sm:text-sm focus:ring-1"
-                placeholder="Email or Phone"
+                placeholder="Email"
                 onChange={handleInputUsername}
                 value={username}
               />
