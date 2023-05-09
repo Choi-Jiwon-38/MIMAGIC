@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Loading from "./components/Loading";
+import Home from "./pages/Home";
+import KakaoRedirect from "./pages/KakaoRedirect";
+import Keyword from "./pages/Keyword";
+import Login from "./pages/Login";
+import Result from "./pages/Result";
+import Signup from "./pages/Signup";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/keyword" element={<Keyword />} />
+      <Route path="/loading" element={<Loading />} />
+      <Route path="/result" element={<Result />} />
+      <Route path="/redirect/kakao" element={<KakaoRedirect />} />
+    </Routes>
   );
 }
 

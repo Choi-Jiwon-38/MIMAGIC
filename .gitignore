@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/yarn,macos,visualstudiocode,react
 # Edit at https://www.toptal.com/developers/gitignore?templates=yarn,macos,visualstudiocode,react
 
+.env
+
 ### macOS ###
 # General
 .DS_Store
@@ -40,6 +42,7 @@ Temporary Items
 logs
 **/*.backup.*
 **/*.back.*
+build/
 
 node_modules
 bower_components
