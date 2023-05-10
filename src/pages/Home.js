@@ -5,10 +5,10 @@ import { userState } from "../atom";
 import TopBar from "../components/TopBar";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const isLoggined = useRecoilValue(userState).isLoggined;
-  const toKeyword = () => {
-    isLoggined ? navigate("/keyword") : navigate("/login");
+  const navigate = useNavigate();                           // 특정 행동('Try it' 버튼 클릭) 발생 시 url 이동을 위하여 useNavigation() 이용
+  const isLoggined = useRecoilValue(userState).isLoggined;  // useRecoilValue()을 이용하여 read-only 형태의 state 값을 추출 -> isLoggined는 bool
+  const toKeyword = () => {                                 // 'Try it' 버튼이 클릭하면 발생하는 함수 / 프로젝트의 기능을 로그인한 사용자만 이용할 수 있도록 하기 위함
+    isLoggined ? navigate("/keyword") : navigate("/login"); // 삼항연산자를 이용하여 isLoggined가 true이면 '/keyword' 페이지로 false면 '/login' 페이지로 redirect
   };
 
   return (
