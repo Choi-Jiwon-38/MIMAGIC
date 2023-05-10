@@ -114,4 +114,5 @@ const firebaseConfig = {
 ## 시연 연상 (Demo video)
 
 [![2023-1 Web Client computing - MIMAGIC 시연 연상](https://img.youtube.com/vi/_mjNaBYIirk/0.jpg)](https://youtu.be/_mjNaBYIirk)
+- 이미지를 클릭하면 YouTube로 연결됩니다.
 - 영상에 대한 설명은 유튜브의 자막 설정을 활성화하면 볼 수 있습니다.
