@@ -23,7 +23,7 @@ MIMAGIC에서는 자바스크립트 패키지 매니저로 `yarn`을 사용하�
 
 ---
 
-## 기술 스택 (How to run a project)
+## 기술 스택 (Tech Stack)
 ### Environment
 <div>
     <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white">
