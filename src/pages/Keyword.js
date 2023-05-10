@@ -5,11 +5,14 @@ import { userState } from "../atom";
 import TopBar from "../components/TopBar";
 
 const Keyword = () => {
-  const [message, setMessage] = useState("");
-  const [question1, setQuestion1] = useState("");
-  const [question2, setQuestion2] = useState("");
+  const [message, setMessage] = useState("");       // 사용자가 입력한 keyword에 대한 state, textarea에 입력한 value가 담길 예정
+  const [question1, setQuestion1] = useState("");   // openAI API의 입력으로 줄 질문 1에 대한 state
+  const [question2, setQuestion2] = useState("");   // openAI API의 입력으로 줄 질문 2에 대한 state
 
   useEffect(() => {
+    // openAI API의 입력으로 주어질 question을 setState로 관리
+    // question1 -> keyword를 바탕으로 서비스의 컨셉을 추천받아 return 받을 수 있도록 하는 질문
+    // question2 -> keyword를 바탕으로 서비스의 이름을 추천받아 return 받을 수 있도록 하는 질문
     setQuestion1(
       "Please come up with one web service ideas using the keyword " + message
     );
@@ -17,16 +20,17 @@ const Keyword = () => {
       "Please make 5 names of web services except for simply connecting words using the keyword " + message
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message]);
+  }, [message]);  // message의 state가 변경될때마다 useEffect가 실행됨
 
   const navigate = useNavigate();
   const isLoggined = useRecoilValue(userState).isLoggined;
+
   // login 상태가 아닌 경우에 Keyword 페이지로 접근하면 Login으로 redirect
   useEffect(() => {
-    if (!isLoggined) {
-      navigate("/login");
+    if (!isLoggined) {        // 사용자가 로그인하지 않은 경우
+      navigate("/login");     // 로그인을 유도하기 위하여 '/login' 페이지로 redirect
     }
-  }, [navigate, isLoggined]);
+  }, [navigate, isLoggined]); // navigate, isLoggined의 value가 변경될 때마다 실행
 
   return (
     <>
