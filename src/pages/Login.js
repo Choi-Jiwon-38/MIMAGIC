@@ -6,19 +6,19 @@ import { userState } from "../atom";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [username, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
-  const [user, setUser] = useRecoilState(userState);
+  const [username, setUserName] = useState("");       // username(e-mail)의 state, setState, 로그인 시 'signInWithEmailAndPassword' 파라미터로 넘겨질 에정
+  const [password, setPassword] = useState("");       // password의 state, setState, 로그인 시 'signInWithEmailAndPassword' 파라미터로  정보로 넘겨질 예정
+  const [errorMsg, setErrorMsg] = useState("");       // 사용자에게 출력될 에러 메세지의 state, setState
+  const [user, setUser] = useRecoilState(userState);  // useRecoilState()을 이용하여 read write 모두 가능한 state, setState를 추출
 
-  const navigate = useNavigate();
+  const navigate = useNavigate();                     // 특정 행동(로그인) 발생 시 url 이동을 위하여 useNavigation() 이용
 
-  const handleInputUsername = (e) => {
-    setUserName(e.target.value);
+  const handleInputUsername = (e) => {                // username input이 onChange 될때마다 실행되는 함수
+    setUserName(e.target.value);                      // username(state)를 input의 value 값으로 업데이트
   };
 
-  const handleInputPassword = (e) => {
-    setPassword(e.target.value);
+  const handleInputPassword = (e) => {                // password input이 onChange 될때마다 실행되는 함수
+    setPassword(e.target.value);                      // password(state)를 input의 value 값으로 업데이트
   };
 
   // login 상태인 경우에는 login 페이지로 접근하면 Home으로 redirect
@@ -30,16 +30,16 @@ const Login = () => {
 
   const login = async () => {
     try {
-      const curUserInfo = await signInWithEmailAndPassword(
-        firebaseAuth,
-        username,
-        password
-      );
-      setUserName("");
-      setPassword("");
-      setErrorMsg("");
-      setUser({ id: curUserInfo.user.email, isLoggined: true });
-      navigate("/");
+      const curUserInfo = await signInWithEmailAndPassword(       // 주어진 정보로 firebase를 이용하여 로그인 시도 -> 결과값은 curUserInfo에 저장
+        firebaseAuth,   // 파라미터로 firebaseAuth 전달
+        username,       // 파라미터로 username <- input value값이 저장된 state 전달
+        password        // 파라미터로 password <- input value값이 저장된 state 전달
+      ); 
+      setUserName("");  // 초기 상태로 state 변경
+      setPassword("");  // 초기 상태로 state 변경
+      setErrorMsg("");  // 초기 상태로 state 변경
+      setUser({ id: curUserInfo.user.email, isLoggined: true });  // 정상적으로 로그인 성공 -> 현재 로그인된 사용자의 정보 중 email 정보 저장 및 로그인 상태 true로 변경
+      navigate("/");                  // firebase의 Auth가 제공하는 error message를 바탕으로 예외 처리 
     } catch (err) {
       switch (err.code) {             // Admin Authentication API 오류 처리
         case "auth/user-not-found":   // 제공된 식별자에 해당하는 기존 사용자 레코드가 존재하지 않은 경우
@@ -55,14 +55,14 @@ const Login = () => {
     }
   };
 
-  if (!window.Kakao.isInitialized()) {
+  if (!window.Kakao.isInitialized()) {  // 소셜 로그인 서비스(kakao 연동)을 제공하기 위한 코드
     window.Kakao.init(process.env.REACT_APP_KAKAO_JS_KEY);
   }
 
-  const onLoginWithKakao = () => {
+  const onLoginWithKakao = () => {     // 'with kakao' 버튼을 클릭하면 실행되는 함수
     // eslint-disable-next-line no-restricted-globals
     const redirectUri = `${location.origin}/redirect/kakao`;
-    window.Kakao.Auth.authorize({
+    window.Kakao.Auth.authorize({     // kakao development에 등록되어 있는 redirectUri을 이용하여 인가코드 발급
       redirectUri,
     });
   };
