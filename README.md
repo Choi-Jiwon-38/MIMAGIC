@@ -69,6 +69,7 @@ MIMAGIC에서는 자바스크립트 패키지 매니저로 `yarn`을 사용하�
 ### 1. 로그인 / 회원가입 (Sign In / Sign Up)
 - 로그인, 회원가입 등, 사용자 관리를 위한 기능들은 [Firebase](https://firebase.google.com/?hl=ko)를 이용하여 구현 되었으며 `/src/firebase.js` 파일에서 초기 설정과 관련된 내용을 확인할 수 있습니다.
 - API와 관련된 외부 노출에 민감한 정보들은 환경 변수로 선언해두었기 때문에 원활한 기능 실행을 위하여 root 디렉토리에 `.env` 파일을 추가해주어야 합니다.
+([.env 파일 다운로드](https://drive.google.com/file/d/1BZyh5V4YXwB7yOpQ0ly47pJZUDS4EEff/view?usp=sharing))
 ```js
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API_KEY,
